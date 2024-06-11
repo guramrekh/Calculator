@@ -1,3 +1,3 @@
 # Calculator
 
- standard calculator application with Java OOP and Swing.
+ Standard calculator application with Java OOP and Swing.
