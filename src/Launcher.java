@@ -1,6 +1,7 @@
+import javax.swing.SwingUtilities;
 
 public class Launcher {
     public static void main(String[] args) {
-        new Window().show();
+        SwingUtilities.invokeLater(() -> new Window().show());
     }
 }

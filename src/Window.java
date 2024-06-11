@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 public class Window implements ActionListener {
     private JFrame mainFrame;
@@ -42,7 +43,7 @@ public class Window implements ActionListener {
         buttons[1].setText("(");
         buttons[2].setText(")");
         buttons[3].setText("DEL");
-        buttons[4].setText("");
+        buttons[4].setText("!");
         buttons[5].setText("π");
         buttons[6].setText("%");
         buttons[7].setText("÷");
@@ -67,17 +68,14 @@ public class Window implements ActionListener {
         buttons[18].setText("3");
         buttons[18].setBackground(Color.white);
         buttons[19].setText("+");
-        buttons[20].setText("NEG");
+        buttons[20].setText("mod");
         buttons[21].setText("0");
         buttons[21].setBackground(Color.white);
         buttons[22].setText(".");
         buttons[22].setFont(new Font("Arial", Font.PLAIN, 30));
-
         buttons[23].setText("=");
         buttons[23].setBackground(NAVY_BLUE);
         buttons[23].setForeground(Color.white);
-
-
     }
 
     private void setupDisplayPanel() {
@@ -97,7 +95,6 @@ public class Window implements ActionListener {
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainFrame.setLocationRelativeTo(null);
-
     }
 
     @Override
@@ -112,18 +109,18 @@ public class Window implements ActionListener {
             if (text.isEmpty()) return;
             displayPanelText.setText(text.substring(0, text.length()-1));
         }
-        else if (button.getText().equals("NEG")) {
-
-        }
         else if (button.getText().equals("=")) {
-            double result = new Calculation().evaluate(displayPanelText.getText());
-            displayPanelText.setText(String.valueOf(result));
+            double result = 0;
+            try {
+                result = new Calculation().evaluate(displayPanelText.getText());
+                displayPanelText.setText(new DecimalFormat("#.######").format(result));
+            } catch (Exception ex) {
+                displayPanelText.setText(ex.getMessage());
+            }
         }
         else {
             displayPanelText.setText(displayPanelText.getText() + button.getText());
         }
-
-
     }
 
     public void show() {
